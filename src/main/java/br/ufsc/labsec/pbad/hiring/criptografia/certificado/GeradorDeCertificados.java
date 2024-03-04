@@ -1,13 +1,28 @@
 package br.ufsc.labsec.pbad.hiring.criptografia.certificado;
 
 import org.bouncycastle.asn1.ASN1EncodableVector;
+import org.bouncycastle.asn1.ASN1Integer;
 import org.bouncycastle.asn1.DERBitString;
+import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
+import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.asn1.x509.TBSCertificate;
+import org.bouncycastle.asn1.x509.Time;
+import org.bouncycastle.asn1.x509.V1TBSCertificateGenerator;
 
+import br.ufsc.labsec.pbad.hiring.Constantes;
+
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.Signature;
+import java.security.SignatureException;
 import java.security.cert.X509Certificate;
+// import java.util.Date;
+import java.util.Date;
+
 
 /**
  * Classe responsável por gerar certificados no padrão X.509.
@@ -42,8 +57,24 @@ public class GeradorDeCertificados {
     public TBSCertificate gerarEstruturaCertificado(PublicKey chavePublica,
                                                     int numeroDeSerie, String nome,
                                                     String nomeAc, int dias) {
-        // TODO implementar
-        return null;
+        V1TBSCertificateGenerator generator = new V1TBSCertificateGenerator();
+        
+
+        SubjectPublicKeyInfo public_info = new SubjectPublicKeyInfo(null, chavePublica.getEncoded());
+        generator.setSubjectPublicKeyInfo(public_info);
+
+        generator.setSerialNumber(new ASN1Integer(numeroDeSerie));
+        
+        generator.setIssuer(new X500Name(nomeAc));
+        generator.setSubject(new X500Name(nome));
+
+        Date now = new Date();
+        generator.setStartDate(new Time(now));
+
+        int milliseconds_per_day = 86400000;
+        generator.setEndDate(new Time(new Date(now.getTime() + dias * milliseconds_per_day)));
+        
+        return generator.generateTBSCertificate();
     }
 
     /**
@@ -55,9 +86,16 @@ public class GeradorDeCertificados {
      * @return Bytes da assinatura.
      */
     public DERBitString geraValorDaAssinaturaCertificado(TBSCertificate estruturaCertificado,
-                                                         PrivateKey chavePrivadaAc) {
-        // TODO implementar
-        return null;
+                                                         PrivateKey chavePrivadaAc)
+    throws NoSuchAlgorithmException, InvalidKeyException, SignatureException, IOException {
+        Signature signature = Signature.getInstance(Constantes.algoritmoAssinatura);
+
+        signature.initSign(chavePrivadaAc);
+
+        signature.update(estruturaCertificado.getEncoded());
+        byte[] bytes = signature.sign();
+
+        return new DERBitString(bytes);
     }
 
     /**
@@ -72,8 +110,6 @@ public class GeradorDeCertificados {
     public X509Certificate gerarCertificado(TBSCertificate estruturaCertificado,
                                             AlgorithmIdentifier algoritmoDeAssinatura,
                                             DERBitString valorDaAssinatura) {
-        // TODO implementar
         return null;
     }
-
 }
