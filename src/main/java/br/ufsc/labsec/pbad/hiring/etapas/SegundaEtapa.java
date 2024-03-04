@@ -1,5 +1,13 @@
 package br.ufsc.labsec.pbad.hiring.etapas;
 
+import java.io.IOException;
+import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
+
+import br.ufsc.labsec.pbad.hiring.Constantes;
+import br.ufsc.labsec.pbad.hiring.criptografia.chave.EscritorDeChaves;
+import br.ufsc.labsec.pbad.hiring.criptografia.chave.GeradorDeChaves;
+
 /**
  * <b>Segunda etapa - gerar chaves assimétricas</b>
  * <p>
@@ -26,7 +34,23 @@ package br.ufsc.labsec.pbad.hiring.etapas;
 public class SegundaEtapa {
 
     public static void executarEtapa() {
-        // TODO implementar
+        try {
+            GeradorDeChaves gen_chaves = new GeradorDeChaves(Constantes.algoritmoChave);
+
+            KeyPair usuario = gen_chaves.gerarParDeChaves(256);
+            EscritorDeChaves.escreveChaveEmDisco("USER PUBLIC KEY", usuario.getPublic(), Constantes.caminhoChavePublicaUsuario);
+            EscritorDeChaves.escreveChaveEmDisco("USER PRIVATE KEY", usuario.getPrivate(), Constantes.caminhoChavePrivadaUsuario);
+            
+            KeyPair ac = gen_chaves.gerarParDeChaves(521);
+            EscritorDeChaves.escreveChaveEmDisco("AC PUBLIC KEY", ac.getPublic(), Constantes.caminhoChavePublicaAc);
+            EscritorDeChaves.escreveChaveEmDisco("AC PRIVATE KEY", ac.getPrivate(), Constantes.caminhoChavePrivadaAc);
+        }
+        catch (NoSuchAlgorithmException exc) {
+            System.out.println("O algoritmo '" + Constantes.algoritmoChave + "' não está disponível.");
+        }
+        catch (IOException exc) {
+            System.out.println("Falha na manipulação de arquivo: " + exc.getMessage());
+        }
     }
 
 }
