@@ -1,5 +1,11 @@
 package br.ufsc.labsec.pbad.hiring.criptografia.certificado;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.security.cert.Certificate;
+
+import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
+
 /**
  * Classe responsável por escrever um certificado no disco.
  */
@@ -9,11 +15,18 @@ public class EscritorDeCertificados {
      * Escreve o certificado indicado no disco.
      *
      * @param nomeArquivo           caminho que será escrito o certificado.
-     * @param certificadoCodificado bytes do certificado.
+     * @param certificado objeto do certificado.
      */
-    public static void escreveCertificado(String nomeArquivo,
-                                          byte[] certificadoCodificado) {
-        // TODO implementar
+    public static void escreveCertificado(String nomeArquivo, Certificate certificado)
+    throws IOException {
+        JcaPEMWriter writer = new JcaPEMWriter(new FileWriter(nomeArquivo));
+
+        try {
+            writer.writeObject(certificado);
+        }
+        finally {
+            writer.close();
+        }
     }
 
 }

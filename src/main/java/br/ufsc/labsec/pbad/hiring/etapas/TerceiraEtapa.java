@@ -1,5 +1,17 @@
 package br.ufsc.labsec.pbad.hiring.etapas;
 
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.cert.X509Certificate;
+
+import org.bouncycastle.asn1.DERBitString;
+import org.bouncycastle.asn1.x509.TBSCertificate;
+
+import br.ufsc.labsec.pbad.hiring.Constantes;
+import br.ufsc.labsec.pbad.hiring.criptografia.certificado.EscritorDeCertificados;
+import br.ufsc.labsec.pbad.hiring.criptografia.certificado.GeradorDeCertificados;
+import br.ufsc.labsec.pbad.hiring.criptografia.chave.LeitorDeChaves;
+
 /**
  * <b>Terceira etapa - gerar certificados digitais</b>
  * <p>
@@ -41,7 +53,45 @@ package br.ufsc.labsec.pbad.hiring.etapas;
 public class TerceiraEtapa {
 
     public static void executarEtapa() {
-        // TODO implementar
+        try {
+            GeradorDeCertificados gerador = new GeradorDeCertificados(Constantes.algoritmoAssinatura);
+
+            PrivateKey privada_ac = LeitorDeChaves.lerChavePrivadaDoDisco(
+                Constantes.caminhoChavePrivadaAc, Constantes.algoritmoChave
+            );
+
+            PublicKey pub_usuario = LeitorDeChaves.lerChavePublicaDoDisco(
+                Constantes.caminhoChavePublicaUsuario, Constantes.algoritmoChave
+            );
+            TBSCertificate tbs_usuario = gerador.gerarEstruturaCertificado(
+                pub_usuario,
+                Constantes.numeroDeSerie,
+                Constantes.nomeUsuario,
+                Constantes.nomeAcRaiz,
+                Constantes.validadeCertificado
+            );
+            DERBitString assinatura_usuario = gerador.geraValorDaAssinaturaCertificado(tbs_usuario, privada_ac);
+            X509Certificate certificado_usuario = gerador.gerarCertificado(tbs_usuario, assinatura_usuario);
+            EscritorDeCertificados.escreveCertificado(Constantes.caminhoCertificadoUsuario, certificado_usuario);
+
+            PublicKey pub_ac = LeitorDeChaves.lerChavePublicaDoDisco(
+                Constantes.caminhoChavePublicaAc, Constantes.algoritmoChave
+            );
+            TBSCertificate tbs_ac = gerador.gerarEstruturaCertificado(
+                pub_ac,
+                Constantes.numeroSerieAc,
+                Constantes.nomeAcRaiz,
+                Constantes.nomeAcRaiz,
+                Constantes.validadeCertificado
+            );
+            DERBitString assinatura_ac = gerador.geraValorDaAssinaturaCertificado(tbs_ac, privada_ac);
+            X509Certificate certificado_ac = gerador.gerarCertificado(tbs_ac, assinatura_ac);
+            EscritorDeCertificados.escreveCertificado(Constantes.caminhoCertificadoAcRaiz, certificado_ac);
+        }
+        catch (Exception exc) {
+            System.out.println("Erro ao executar etapa 3: " + exc.getMessage());
+        }
+
     }
 
 }

@@ -38,12 +38,12 @@ public class SegundaEtapa {
             GeradorDeChaves gen_chaves = new GeradorDeChaves(Constantes.algoritmoChave);
 
             KeyPair usuario = gen_chaves.gerarParDeChaves(256);
-            EscritorDeChaves.escreveChaveEmDisco("USER PUBLIC KEY", usuario.getPublic(), Constantes.caminhoChavePublicaUsuario);
-            EscritorDeChaves.escreveChaveEmDisco("USER PRIVATE KEY", usuario.getPrivate(), Constantes.caminhoChavePrivadaUsuario);
+            EscritorDeChaves.escreveChaveEmDisco(usuario.getPublic(), Constantes.caminhoChavePublicaUsuario);
+            EscritorDeChaves.escreveChaveEmDisco(usuario.getPrivate(), Constantes.caminhoChavePrivadaUsuario);
             
             KeyPair ac = gen_chaves.gerarParDeChaves(521);
-            EscritorDeChaves.escreveChaveEmDisco("AC PUBLIC KEY", ac.getPublic(), Constantes.caminhoChavePublicaAc);
-            EscritorDeChaves.escreveChaveEmDisco("AC PRIVATE KEY", ac.getPrivate(), Constantes.caminhoChavePrivadaAc);
+            EscritorDeChaves.escreveChaveEmDisco(ac.getPublic(), Constantes.caminhoChavePublicaAc);
+            EscritorDeChaves.escreveChaveEmDisco(ac.getPrivate(), Constantes.caminhoChavePrivadaAc);
         }
         catch (NoSuchAlgorithmException exc) {
             System.out.println("O algoritmo '" + Constantes.algoritmoChave + "' não está disponível.");

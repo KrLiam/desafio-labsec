@@ -48,6 +48,8 @@ public class Constantes {
     public static final String nomeAcRaiz = "CN=" + aliasAc;
     public static final String nomeUsuario = "CN=" + aliasUsuario;
 
+    public static final int validadeCertificado = 365;
+
     public static final char[] senhaMestre =
             String.valueOf(numeroDeSerie).toCharArray();
 

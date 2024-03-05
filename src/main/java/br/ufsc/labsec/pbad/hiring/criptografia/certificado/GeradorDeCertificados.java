@@ -1,26 +1,32 @@
 package br.ufsc.labsec.pbad.hiring.criptografia.certificado;
 
 import org.bouncycastle.asn1.ASN1EncodableVector;
+import org.bouncycastle.asn1.ASN1Encoding;
 import org.bouncycastle.asn1.ASN1Integer;
 import org.bouncycastle.asn1.DERBitString;
+import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.asn1.x509.TBSCertificate;
 import org.bouncycastle.asn1.x509.Time;
 import org.bouncycastle.asn1.x509.V1TBSCertificateGenerator;
+import org.bouncycastle.operator.DefaultSignatureAlgorithmIdentifierFinder;
 
 import br.ufsc.labsec.pbad.hiring.Constantes;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.security.SignatureException;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-// import java.util.Date;
 import java.util.Date;
 
 
@@ -42,6 +48,15 @@ import java.util.Date;
  */
 
 public class GeradorDeCertificados {
+    AlgorithmIdentifier algoritmoDeAssinatura;
+    Signature signature;
+
+    public GeradorDeCertificados(String algoritmoAssinatura) throws NoSuchAlgorithmException {
+        DefaultSignatureAlgorithmIdentifierFinder finder = new DefaultSignatureAlgorithmIdentifierFinder();
+
+        algoritmoDeAssinatura = finder.find(algoritmoAssinatura);
+        signature = Signature.getInstance(algoritmoAssinatura);
+    }
 
     /**
      * Gera a estrutura de informações de um certificado.
@@ -58,10 +73,10 @@ public class GeradorDeCertificados {
                                                     int numeroDeSerie, String nome,
                                                     String nomeAc, int dias) {
         V1TBSCertificateGenerator generator = new V1TBSCertificateGenerator();
-        
 
-        SubjectPublicKeyInfo public_info = new SubjectPublicKeyInfo(null, chavePublica.getEncoded());
+        SubjectPublicKeyInfo public_info = SubjectPublicKeyInfo.getInstance(chavePublica.getEncoded());
         generator.setSubjectPublicKeyInfo(public_info);
+        generator.setSignature(algoritmoDeAssinatura);
 
         generator.setSerialNumber(new ASN1Integer(numeroDeSerie));
         
@@ -73,7 +88,7 @@ public class GeradorDeCertificados {
 
         int milliseconds_per_day = 86400000;
         generator.setEndDate(new Time(new Date(now.getTime() + dias * milliseconds_per_day)));
-        
+
         return generator.generateTBSCertificate();
     }
 
@@ -88,8 +103,6 @@ public class GeradorDeCertificados {
     public DERBitString geraValorDaAssinaturaCertificado(TBSCertificate estruturaCertificado,
                                                          PrivateKey chavePrivadaAc)
     throws NoSuchAlgorithmException, InvalidKeyException, SignatureException, IOException {
-        Signature signature = Signature.getInstance(Constantes.algoritmoAssinatura);
-
         signature.initSign(chavePrivadaAc);
 
         signature.update(estruturaCertificado.getEncoded());
@@ -102,14 +115,24 @@ public class GeradorDeCertificados {
      * Gera um certificado.
      *
      * @param estruturaCertificado  estrutura de informações do certificado.
-     * @param algoritmoDeAssinatura algoritmo de assinatura.
      * @param valorDaAssinatura     valor da assinatura.
      * @return Objeto que representa o certificado.
      * @see ASN1EncodableVector
      */
-    public X509Certificate gerarCertificado(TBSCertificate estruturaCertificado,
-                                            AlgorithmIdentifier algoritmoDeAssinatura,
-                                            DERBitString valorDaAssinatura) {
-        return null;
+    public X509Certificate gerarCertificado(
+        TBSCertificate estruturaCertificado, DERBitString valorDaAssinatura
+    ) throws CertificateException, NoSuchProviderException, IOException {
+        
+        ASN1EncodableVector vector = new ASN1EncodableVector();
+
+        vector.add(estruturaCertificado);
+        vector.add(algoritmoDeAssinatura);
+        vector.add(valorDaAssinatura);
+        
+        CertificateFactory factory = CertificateFactory.getInstance(Constantes.formatoCertificado);
+        
+        return (X509Certificate) factory.generateCertificate(
+            new ByteArrayInputStream(new DERSequence(vector).getEncoded(ASN1Encoding.DER))
+        );
     }
 }

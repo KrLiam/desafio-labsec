@@ -1,13 +1,13 @@
 package br.ufsc.labsec.pbad.hiring.criptografia.chave;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.security.Key;
+import java.security.PrivateKey;
 
-import org.bouncycastle.util.io.pem.PemObject;
-import org.bouncycastle.util.io.pem.PemWriter;
+import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
+import org.bouncycastle.openssl.jcajce.JcaPKCS8Generator;
 
 /**
  * Essa classe é responsável por escrever uma chave assimétrica no disco. Note
@@ -23,12 +23,18 @@ public class EscritorDeChaves {
      * @param chave         chave assimétrica a ser escrita em disco.
      * @param nomeDoArquivo nome do local onde será escrita a chave.
      */
-    public static void escreveChaveEmDisco(String description, Key chave, String nomeDoArquivo) throws FileNotFoundException, IOException {
-        PemWriter writer = new PemWriter(new OutputStreamWriter(new FileOutputStream(nomeDoArquivo)));
+    public static void escreveChaveEmDisco(Key chave, String nomeDoArquivo) throws FileNotFoundException, IOException {
+        JcaPEMWriter writer = new JcaPEMWriter(new FileWriter(nomeDoArquivo));
 
         try {
-            PemObject object = new PemObject(description, chave.getEncoded());
-            writer.writeObject(object);
+            Object objeto = chave;
+
+            if (chave instanceof PrivateKey) {
+                JcaPKCS8Generator generator = new JcaPKCS8Generator((PrivateKey) chave, null);
+                objeto = generator.generate();
+            }
+
+            writer.writeObject(objeto);
         }
         finally {
             writer.close();

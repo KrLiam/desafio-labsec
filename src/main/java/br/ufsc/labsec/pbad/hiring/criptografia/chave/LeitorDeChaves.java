@@ -1,9 +1,18 @@
 package br.ufsc.labsec.pbad.hiring.criptografia.chave;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.KeySpec;
+
+import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
+import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.bouncycastle.openssl.PEMParser;
+import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 
 /**
  * Classe responsável por ler uma chave assimétrica do disco.
@@ -21,12 +30,22 @@ public class LeitorDeChaves {
      *                     foi gerada.
      * @return Chave privada.
      */
-    public static PrivateKey lerChavePrivadaDoDisco(String caminhoChave,
-                                                    String algoritmo) {
-        // TODO implementar
-        return null;
-    }
+    public static PrivateKey lerChavePrivadaDoDisco(String caminhoChave, String algoritmo)
+    throws FileNotFoundException, IOException {
+        PEMParser parser = new PEMParser(new FileReader(new File(caminhoChave)));
 
+        Object object;
+        try {
+            object = parser.readObject();
+        }
+        finally {
+            parser.close();
+        }
+        
+        PrivateKeyInfo info = PrivateKeyInfo.getInstance(object);
+        JcaPEMKeyConverter converter = new JcaPEMKeyConverter();
+        return converter.getPrivateKey(info);
+    }
     /**
      * Lê a chave pública do local indicado.
      *
@@ -35,10 +54,21 @@ public class LeitorDeChaves {
      *                     foi gerada.
      * @return Chave pública.
      */
-    public static PublicKey lerChavePublicaDoDisco(String caminhoChave,
-                                                   String algoritmo) {
-        // TODO implementar
-        return null;
+    public static PublicKey lerChavePublicaDoDisco(String caminhoChave, String algoritmo)
+    throws IOException {
+        PEMParser parser = new PEMParser(new FileReader(new File(caminhoChave)));
+
+        Object obj;
+        try {
+            obj = parser.readObject();
+        }
+        finally {
+            parser.close();
+        }
+
+        SubjectPublicKeyInfo info = SubjectPublicKeyInfo.getInstance(obj);
+        JcaPEMKeyConverter converter = new JcaPEMKeyConverter();
+        return converter.getPublicKey(info);
     }
 
 }
