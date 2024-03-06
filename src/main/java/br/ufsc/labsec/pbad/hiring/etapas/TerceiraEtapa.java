@@ -56,13 +56,9 @@ public class TerceiraEtapa {
         try {
             GeradorDeCertificados gerador = new GeradorDeCertificados(Constantes.algoritmoAssinatura);
 
-            PrivateKey privada_ac = LeitorDeChaves.lerChavePrivadaDoDisco(
-                Constantes.caminhoChavePrivadaAc, Constantes.algoritmoChave
-            );
+            PrivateKey privada_ac = LeitorDeChaves.lerChavePrivadaDoDisco(Constantes.caminhoChavePrivadaAc);
 
-            PublicKey pub_usuario = LeitorDeChaves.lerChavePublicaDoDisco(
-                Constantes.caminhoChavePublicaUsuario, Constantes.algoritmoChave
-            );
+            PublicKey pub_usuario = LeitorDeChaves.lerChavePublicaDoDisco(Constantes.caminhoChavePublicaUsuario);
             TBSCertificate tbs_usuario = gerador.gerarEstruturaCertificado(
                 pub_usuario,
                 Constantes.numeroDeSerie,
@@ -74,9 +70,7 @@ public class TerceiraEtapa {
             X509Certificate certificado_usuario = gerador.gerarCertificado(tbs_usuario, assinatura_usuario);
             EscritorDeCertificados.escreveCertificado(Constantes.caminhoCertificadoUsuario, certificado_usuario);
 
-            PublicKey pub_ac = LeitorDeChaves.lerChavePublicaDoDisco(
-                Constantes.caminhoChavePublicaAc, Constantes.algoritmoChave
-            );
+            PublicKey pub_ac = LeitorDeChaves.lerChavePublicaDoDisco(Constantes.caminhoChavePublicaAc);
             TBSCertificate tbs_ac = gerador.gerarEstruturaCertificado(
                 pub_ac,
                 Constantes.numeroSerieAc,

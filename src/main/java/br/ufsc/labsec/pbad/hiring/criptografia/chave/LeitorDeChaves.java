@@ -30,7 +30,7 @@ public class LeitorDeChaves {
      *                     foi gerada.
      * @return Chave privada.
      */
-    public static PrivateKey lerChavePrivadaDoDisco(String caminhoChave, String algoritmo)
+    public static PrivateKey lerChavePrivadaDoDisco(String caminhoChave)
     throws FileNotFoundException, IOException {
         PEMParser parser = new PEMParser(new FileReader(new File(caminhoChave)));
 
@@ -46,6 +46,7 @@ public class LeitorDeChaves {
         JcaPEMKeyConverter converter = new JcaPEMKeyConverter();
         return converter.getPrivateKey(info);
     }
+
     /**
      * Lê a chave pública do local indicado.
      *
@@ -54,7 +55,7 @@ public class LeitorDeChaves {
      *                     foi gerada.
      * @return Chave pública.
      */
-    public static PublicKey lerChavePublicaDoDisco(String caminhoChave, String algoritmo)
+    public static PublicKey lerChavePublicaDoDisco(String caminhoChave)
     throws IOException {
         PEMParser parser = new PEMParser(new FileReader(new File(caminhoChave)));
 
