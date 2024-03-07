@@ -78,7 +78,7 @@ public class GeradorDeAssinatura {
 
         geradorAssinaturaCms.addSignerInfoGenerator(signer);
 
-        return geradorAssinaturaCms.generate(data);
+        return geradorAssinaturaCms.generate(data, true);
     }
 
     /**
