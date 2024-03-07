@@ -51,7 +51,7 @@ public class VerificadorDeAssinatura {
     throws OperatorCreationException {
         JcaSimpleSignerInfoVerifierBuilder builder = new JcaSimpleSignerInfoVerifierBuilder();
         
-        builder.setProvider(Constantes.algoritmoAssinatura);
+        builder.setProvider("BC");
         return builder.build(certificado);
     }
 
