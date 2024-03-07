@@ -13,6 +13,7 @@ public class GeradorDeChaves {
 
     private String algoritmo;
     private KeyPairGenerator generator;
+    private SecureRandom random = new SecureRandom();
 
     /**
      * Construtor.
@@ -22,7 +23,6 @@ public class GeradorDeChaves {
     public GeradorDeChaves(String algoritmo) throws NoSuchAlgorithmException {
         this.algoritmo = algoritmo;
         this.generator = KeyPairGenerator.getInstance(this.algoritmo);
-
     }
 
     /**
@@ -34,7 +34,7 @@ public class GeradorDeChaves {
      * @see SecureRandom
      */
     public KeyPair gerarParDeChaves(int tamanhoDaChave) {
-        generator.initialize(tamanhoDaChave);
+        generator.initialize(tamanhoDaChave, random);
         return generator.generateKeyPair();
     }
 

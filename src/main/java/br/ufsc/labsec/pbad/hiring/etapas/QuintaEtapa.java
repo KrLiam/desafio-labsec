@@ -1,5 +1,15 @@
 package br.ufsc.labsec.pbad.hiring.etapas;
 
+import java.io.FileOutputStream;
+import java.security.PrivateKey;
+import java.security.cert.X509Certificate;
+
+import org.bouncycastle.cms.CMSSignedData;
+
+import br.ufsc.labsec.pbad.hiring.Constantes;
+import br.ufsc.labsec.pbad.hiring.criptografia.assinatura.GeradorDeAssinatura;
+import br.ufsc.labsec.pbad.hiring.criptografia.repositorio.RepositorioChaves;
+
 /**
  * <b>Quinta etapa - gerar uma assinatura digital</b>
  * <p>
@@ -33,9 +43,26 @@ package br.ufsc.labsec.pbad.hiring.etapas;
  * </ul>
  */
 public class QuintaEtapa {
-
     public static void executarEtapa() {
-        // TODO implementar
+        try {
+            RepositorioChaves chaves = new RepositorioChaves(Constantes.formatoRepositorio);
+            chaves.abrir(Constantes.caminhoPkcs12AcRaiz, Constantes.senhaMestre);
+            
+            PrivateKey privada_ac = chaves.pegarChavePrivada(Constantes.aliasAc);
+            X509Certificate cert_ac = chaves.pegarCertificado(Constantes.aliasAc);
+
+            GeradorDeAssinatura assinaturas = new GeradorDeAssinatura();
+            assinaturas.informaAssinante(cert_ac, privada_ac);
+
+            CMSSignedData signed = assinaturas.assinar(Constantes.caminhoTextoPlano);
+
+            FileOutputStream output = new FileOutputStream(Constantes.caminhoAssinatura);
+            assinaturas.escreveAssinatura(output, signed);
+        }
+        catch (Exception exc) {
+            System.out.println("Erro ao executar etapa 5:");
+            exc.printStackTrace();
+        }
     }
 
 }
