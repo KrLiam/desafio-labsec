@@ -46,13 +46,13 @@ public class QuintaEtapa {
     public static void executarEtapa() {
         try {
             RepositorioChaves chaves = new RepositorioChaves(Constantes.formatoRepositorio);
-            chaves.abrir(Constantes.caminhoPkcs12AcRaiz, Constantes.senhaMestre);
+            chaves.abrir(Constantes.caminhoPkcs12Usuario, Constantes.senhaMestre);
             
-            PrivateKey privada_ac = chaves.pegarChavePrivada(Constantes.aliasAc);
-            X509Certificate cert_ac = chaves.pegarCertificado(Constantes.aliasAc);
+            PrivateKey chave_privada = chaves.pegarChavePrivada(Constantes.aliasUsuario);
+            X509Certificate certificado = chaves.pegarCertificado(Constantes.aliasUsuario);
 
             GeradorDeAssinatura assinaturas = new GeradorDeAssinatura();
-            assinaturas.informaAssinante(cert_ac, privada_ac);
+            assinaturas.informaAssinante(certificado, chave_privada);
 
             CMSSignedData signed = assinaturas.assinar(Constantes.caminhoTextoPlano);
 
