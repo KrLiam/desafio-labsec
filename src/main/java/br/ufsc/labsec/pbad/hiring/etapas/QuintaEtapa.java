@@ -54,10 +54,10 @@ public class QuintaEtapa {
             GeradorDeAssinatura assinaturas = new GeradorDeAssinatura();
             assinaturas.informaAssinante(certificado, chave_privada);
 
-            CMSSignedData signed = assinaturas.assinar(Constantes.caminhoTextoPlano);
+            CMSSignedData dados = assinaturas.assinar(Constantes.caminhoTextoPlano);
 
-            FileOutputStream output = new FileOutputStream(Constantes.caminhoAssinatura);
-            assinaturas.escreveAssinatura(output, signed);
+            FileOutputStream saida = new FileOutputStream(Constantes.caminhoAssinatura);
+            assinaturas.escreveAssinatura(saida, dados);
         }
         catch (Exception exc) {
             System.out.println("Erro ao executar a quinta etapa:");

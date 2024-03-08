@@ -33,8 +33,8 @@ public class PrimeiraEtapa {
         try {
             Resumidor resumidor = new Resumidor(Constantes.algoritmoResumo);
 
-            File input = new File(Constantes.caminhoTextoPlano);
-            byte[] resumo = resumidor.resumir(input);
+            File entrada = new File(Constantes.caminhoTextoPlano);
+            byte[] resumo = resumidor.resumir(entrada);
 
             resumidor.escreveResumoEmDisco(resumo, Constantes.caminhoResumoCriptografico);
         }

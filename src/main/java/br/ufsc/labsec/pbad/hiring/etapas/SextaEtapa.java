@@ -47,9 +47,9 @@ public class SextaEtapa {
             X509Certificate certificado = chaves.pegarCertificado(Constantes.aliasUsuario);
 
             VerificadorDeAssinatura verificador = new VerificadorDeAssinatura();
-            boolean result = verificador.verificarAssinatura(certificado, new CMSSignedData(assinatura));
+            boolean resultado = verificador.verificarAssinatura(certificado, new CMSSignedData(assinatura));
 
-            System.out.println("Assinatura válida: " + String.valueOf(result));
+            System.out.println("Assinatura válida: " + String.valueOf(resultado));
         }
         catch (Exception exc) {
             System.out.println("Erro ao executar a sexta etapa:");

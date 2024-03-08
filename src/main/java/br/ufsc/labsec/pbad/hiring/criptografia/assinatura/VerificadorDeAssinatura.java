@@ -6,6 +6,7 @@ import org.bouncycastle.cms.SignerInformation;
 import org.bouncycastle.cms.SignerInformationStore;
 import org.bouncycastle.cms.SignerInformationVerifier;
 import org.bouncycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.OperatorCreationException;
 
 import java.security.cert.X509Certificate;
@@ -47,7 +48,7 @@ public class VerificadorDeAssinatura {
     throws OperatorCreationException {
         JcaSimpleSignerInfoVerifierBuilder builder = new JcaSimpleSignerInfoVerifierBuilder();
         
-        builder.setProvider("BC");
+        builder.setProvider(BouncyCastleProvider.PROVIDER_NAME);
         return builder.build(certificado);
     }
 

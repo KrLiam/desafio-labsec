@@ -32,8 +32,8 @@ public class LeitorDeCertificados {
             JcaX509CertificateConverter converter = new JcaX509CertificateConverter();
 
             if (object instanceof X509CertificateHolder) {
-                X509CertificateHolder cert_obj = (X509CertificateHolder) object;
-                return converter.getCertificate(cert_obj);
+                X509CertificateHolder cert_object = (X509CertificateHolder) object;
+                return converter.getCertificate(cert_object);
             }
         }    
 

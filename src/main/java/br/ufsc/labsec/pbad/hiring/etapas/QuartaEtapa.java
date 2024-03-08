@@ -39,22 +39,22 @@ public class QuartaEtapa {
     public static void executarEtapa() {
         try {
             PrivateKey privada_usuario = LeitorDeChaves.lerChavePrivadaDoDisco(Constantes.caminhoChavePrivadaUsuario);
-            X509Certificate cert_usuario = LeitorDeCertificados.lerCertificadoDoDisco(Constantes.caminhoCertificadoUsuario);
+            X509Certificate certificado_usuario = LeitorDeCertificados.lerCertificadoDoDisco(Constantes.caminhoCertificadoUsuario);
 
             GeradorDeRepositorios.gerarPkcs12(
                 privada_usuario,
-                cert_usuario,
+                certificado_usuario,
                 Constantes.caminhoPkcs12Usuario,
                 Constantes.aliasUsuario,
                 Constantes.senhaMestre
             );
 
             PrivateKey privada_ac = LeitorDeChaves.lerChavePrivadaDoDisco(Constantes.caminhoChavePrivadaAc);
-            X509Certificate cert_ac = LeitorDeCertificados.lerCertificadoDoDisco(Constantes.caminhoCertificadoAcRaiz);
+            X509Certificate certificado_ac = LeitorDeCertificados.lerCertificadoDoDisco(Constantes.caminhoCertificadoAcRaiz);
 
             GeradorDeRepositorios.gerarPkcs12(
                 privada_ac,
-                cert_ac,
+                certificado_ac,
                 Constantes.caminhoPkcs12AcRaiz,
                 Constantes.aliasAc,
                 Constantes.senhaMestre
