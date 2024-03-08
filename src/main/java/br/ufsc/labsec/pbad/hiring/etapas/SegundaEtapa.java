@@ -1,8 +1,6 @@
 package br.ufsc.labsec.pbad.hiring.etapas;
 
-import java.io.IOException;
 import java.security.KeyPair;
-import java.security.NoSuchAlgorithmException;
 
 import br.ufsc.labsec.pbad.hiring.Constantes;
 import br.ufsc.labsec.pbad.hiring.criptografia.chave.EscritorDeChaves;
@@ -45,11 +43,9 @@ public class SegundaEtapa {
             EscritorDeChaves.escreveChaveEmDisco(ac.getPublic(), Constantes.caminhoChavePublicaAc);
             EscritorDeChaves.escreveChaveEmDisco(ac.getPrivate(), Constantes.caminhoChavePrivadaAc);
         }
-        catch (NoSuchAlgorithmException exc) {
-            System.out.println("O algoritmo '" + Constantes.algoritmoChave + "' não está disponível.");
-        }
-        catch (IOException exc) {
-            System.out.println("Falha na manipulação de arquivo: " + exc.getMessage());
+        catch (Exception exc) {
+            System.out.println("Erro ao executar a segunda etapa:");
+            exc.printStackTrace();
         }
     }
 

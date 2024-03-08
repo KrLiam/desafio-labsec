@@ -51,6 +51,7 @@ public class RepositorioChaves {
     public PrivateKey pegarChavePrivada(String alias)
     throws NoSuchAlgorithmException, UnrecoverableEntryException, KeyStoreException {
         KeyStore.PasswordProtection param = new KeyStore.PasswordProtection(senha);
+        
         KeyStore.PrivateKeyEntry entry = (KeyStore.PrivateKeyEntry) repositorio.getEntry(alias, param);
         return entry.getPrivateKey();
     }
@@ -64,6 +65,7 @@ public class RepositorioChaves {
     public X509Certificate pegarCertificado(String alias)
     throws NoSuchAlgorithmException, UnrecoverableEntryException, KeyStoreException {
         KeyStore.PasswordProtection param = new KeyStore.PasswordProtection(senha);
+
         KeyStore.PrivateKeyEntry entry = (KeyStore.PrivateKeyEntry) repositorio.getEntry(alias, param);
         return (X509Certificate) entry.getCertificate();
     }

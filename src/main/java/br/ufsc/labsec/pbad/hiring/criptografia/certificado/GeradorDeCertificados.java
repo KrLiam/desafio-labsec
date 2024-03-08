@@ -27,6 +27,7 @@ import java.security.SignatureException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -83,11 +84,11 @@ public class GeradorDeCertificados {
         generator.setIssuer(new X500Name(nomeAc));
         generator.setSubject(new X500Name(nome));
 
-        Date now = new Date();
-        generator.setStartDate(new Time(now));
+        Calendar calendar = Calendar.getInstance();
+        generator.setStartDate(new Time(calendar.getTime()));
 
-        int milliseconds_per_day = 86400000;
-        generator.setEndDate(new Time(new Date(now.getTime() + dias * milliseconds_per_day)));
+        calendar.add(Calendar.DATE, dias);
+        generator.setEndDate(new Time(calendar.getTime()));
 
         return generator.generateTBSCertificate();
     }

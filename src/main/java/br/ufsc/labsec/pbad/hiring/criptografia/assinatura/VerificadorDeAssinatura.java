@@ -6,10 +6,7 @@ import org.bouncycastle.cms.SignerInformation;
 import org.bouncycastle.cms.SignerInformationStore;
 import org.bouncycastle.cms.SignerInformationVerifier;
 import org.bouncycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.OperatorCreationException;
-
-import br.ufsc.labsec.pbad.hiring.Constantes;
 
 import java.security.cert.X509Certificate;
 import java.util.Iterator;
@@ -39,7 +36,6 @@ public class VerificadorDeAssinatura {
             return false;
         }
     }
-        // TODO implementar
 
     /**
      * Gera o verificador de assinaturas a partir das informações do assinante.
@@ -68,5 +64,4 @@ public class VerificadorDeAssinatura {
         Iterator<SignerInformation> iter = signers.iterator();
         return iter.next();
     }
-
 }

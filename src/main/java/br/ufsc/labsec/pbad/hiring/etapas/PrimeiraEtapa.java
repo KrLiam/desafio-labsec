@@ -38,14 +38,9 @@ public class PrimeiraEtapa {
 
             resumidor.escreveResumoEmDisco(resumo, Constantes.caminhoResumoCriptografico);
         }
-        catch (NoSuchAlgorithmException exc) {
-            System.out.println("Algoritmo '" + Constantes.algoritmoResumo + "' não está disponível.");
-        }
-        catch (FileNotFoundException exc) {
-            System.out.println("O arquivo '" + Constantes.caminhoTextoPlano + "' não existe.");
-        }
-        catch (IOException exc) {
-            System.out.println("Falha de leitura/escrita de arquivo.");
+        catch (Exception exc) {
+            System.out.println("Erro ao executar a primeira etapa:");
+            exc.printStackTrace();
         }
     }
 }

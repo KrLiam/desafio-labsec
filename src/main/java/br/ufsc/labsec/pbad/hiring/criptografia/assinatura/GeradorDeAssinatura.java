@@ -90,7 +90,7 @@ public class GeradorDeAssinatura {
      */
     private CMSTypedData preparaDadosParaAssinar(String caminhoDocumento)
     throws FileNotFoundException, IOException {
-        try (FileInputStream stream = new FileInputStream(new File(caminhoDocumento))) {
+        try (FileInputStream stream = new FileInputStream(caminhoDocumento)) {
             return new CMSProcessableByteArray(stream.readAllBytes());
         }
     }
@@ -106,8 +106,6 @@ public class GeradorDeAssinatura {
     private SignerInfoGenerator preparaInformacoesAssinante(
         PrivateKey chavePrivada, X509Certificate certificado
     ) throws CertificateEncodingException, OperatorCreationException {
-        // String algoritmo = "ECDSA"; 
-
         JcaDigestCalculatorProviderBuilder provider_builder = new JcaDigestCalculatorProviderBuilder();
         DigestCalculatorProvider provider = provider_builder.build();
         
@@ -115,8 +113,6 @@ public class GeradorDeAssinatura {
         ContentSigner signer = signer_builder.build(chavePrivada);
 
         JcaSignerInfoGeneratorBuilder info_builder = new JcaSignerInfoGeneratorBuilder(provider);
-
-        // new JcaSimpleSignerInfoGeneratorBuilder();
 
         return info_builder.build(signer, certificado);
     }

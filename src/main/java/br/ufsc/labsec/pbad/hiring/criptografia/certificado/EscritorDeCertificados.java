@@ -19,14 +19,8 @@ public class EscritorDeCertificados {
      */
     public static void escreveCertificado(String nomeArquivo, Certificate certificado)
     throws IOException {
-        JcaPEMWriter writer = new JcaPEMWriter(new FileWriter(nomeArquivo));
-
-        try {
+        try (JcaPEMWriter writer = new JcaPEMWriter(new FileWriter(nomeArquivo))) {
             writer.writeObject(certificado);
         }
-        finally {
-            writer.close();
-        }
     }
-
 }

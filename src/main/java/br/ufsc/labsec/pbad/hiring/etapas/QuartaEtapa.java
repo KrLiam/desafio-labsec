@@ -59,10 +59,9 @@ public class QuartaEtapa {
                 Constantes.aliasAc,
                 Constantes.senhaMestre
             );
-
         }
         catch (Exception exc) {
-            System.out.println("Erro ao executar etapa 4:");
+            System.out.println("Erro ao executar a quarta etapa:");
             exc.printStackTrace();
         }
     }

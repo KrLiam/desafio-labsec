@@ -1,6 +1,5 @@
 package br.ufsc.labsec.pbad.hiring.criptografia.chave;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -32,19 +31,13 @@ public class LeitorDeChaves {
      */
     public static PrivateKey lerChavePrivadaDoDisco(String caminhoChave)
     throws FileNotFoundException, IOException {
-        PEMParser parser = new PEMParser(new FileReader(new File(caminhoChave)));
+        try (PEMParser parser = new PEMParser(new FileReader(caminhoChave))) {
+            Object object = parser.readObject();
 
-        Object object;
-        try {
-            object = parser.readObject();
+            PrivateKeyInfo info = PrivateKeyInfo.getInstance(object);
+            JcaPEMKeyConverter converter = new JcaPEMKeyConverter();
+            return converter.getPrivateKey(info);
         }
-        finally {
-            parser.close();
-        }
-        
-        PrivateKeyInfo info = PrivateKeyInfo.getInstance(object);
-        JcaPEMKeyConverter converter = new JcaPEMKeyConverter();
-        return converter.getPrivateKey(info);
     }
 
     /**
@@ -57,19 +50,12 @@ public class LeitorDeChaves {
      */
     public static PublicKey lerChavePublicaDoDisco(String caminhoChave)
     throws IOException {
-        PEMParser parser = new PEMParser(new FileReader(new File(caminhoChave)));
+        try (PEMParser parser = new PEMParser(new FileReader(caminhoChave))) {
+            Object obj = parser.readObject();
 
-        Object obj;
-        try {
-            obj = parser.readObject();
+            SubjectPublicKeyInfo info = SubjectPublicKeyInfo.getInstance(obj);
+            JcaPEMKeyConverter converter = new JcaPEMKeyConverter();
+            return converter.getPublicKey(info);
         }
-        finally {
-            parser.close();
-        }
-
-        SubjectPublicKeyInfo info = SubjectPublicKeyInfo.getInstance(obj);
-        JcaPEMKeyConverter converter = new JcaPEMKeyConverter();
-        return converter.getPublicKey(info);
     }
-
 }

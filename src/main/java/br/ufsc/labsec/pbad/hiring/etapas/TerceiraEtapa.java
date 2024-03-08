@@ -51,16 +51,15 @@ import br.ufsc.labsec.pbad.hiring.criptografia.chave.LeitorDeChaves;
  * </ul>
  */
 public class TerceiraEtapa {
-
     public static void executarEtapa() {
         try {
             GeradorDeCertificados gerador = new GeradorDeCertificados(Constantes.algoritmoAssinatura);
 
             PrivateKey privada_ac = LeitorDeChaves.lerChavePrivadaDoDisco(Constantes.caminhoChavePrivadaAc);
 
-            PublicKey pub_usuario = LeitorDeChaves.lerChavePublicaDoDisco(Constantes.caminhoChavePublicaUsuario);
+            PublicKey publica_usuario = LeitorDeChaves.lerChavePublicaDoDisco(Constantes.caminhoChavePublicaUsuario);
             TBSCertificate tbs_usuario = gerador.gerarEstruturaCertificado(
-                pub_usuario,
+                publica_usuario,
                 Constantes.numeroDeSerie,
                 Constantes.nomeUsuario,
                 Constantes.nomeAcRaiz,
@@ -70,9 +69,9 @@ public class TerceiraEtapa {
             X509Certificate certificado_usuario = gerador.gerarCertificado(tbs_usuario, assinatura_usuario);
             EscritorDeCertificados.escreveCertificado(Constantes.caminhoCertificadoUsuario, certificado_usuario);
 
-            PublicKey pub_ac = LeitorDeChaves.lerChavePublicaDoDisco(Constantes.caminhoChavePublicaAc);
+            PublicKey publica_ac = LeitorDeChaves.lerChavePublicaDoDisco(Constantes.caminhoChavePublicaAc);
             TBSCertificate tbs_ac = gerador.gerarEstruturaCertificado(
-                pub_ac,
+                publica_ac,
                 Constantes.numeroSerieAc,
                 Constantes.nomeAcRaiz,
                 Constantes.nomeAcRaiz,
@@ -83,9 +82,8 @@ public class TerceiraEtapa {
             EscritorDeCertificados.escreveCertificado(Constantes.caminhoCertificadoAcRaiz, certificado_ac);
         }
         catch (Exception exc) {
-            System.out.println("Erro ao executar etapa 3: " + exc.getMessage());
+            System.out.println("Erro ao executar a terceira etapa:");
+            exc.printStackTrace();
         }
-
     }
-
 }

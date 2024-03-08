@@ -1,6 +1,9 @@
 package br.ufsc.labsec.pbad.hiring.criptografia.chave;
 
-import java.security.*;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 /**
  * Classe responsável por gerar pares de chaves assimétricas.
@@ -10,7 +13,6 @@ import java.security.*;
  * @see PrivateKey
  */
 public class GeradorDeChaves {
-
     private String algoritmo;
     private KeyPairGenerator generator;
     private SecureRandom random = new SecureRandom();
@@ -37,5 +39,4 @@ public class GeradorDeChaves {
         generator.initialize(tamanhoDaChave, random);
         return generator.generateKeyPair();
     }
-
 }

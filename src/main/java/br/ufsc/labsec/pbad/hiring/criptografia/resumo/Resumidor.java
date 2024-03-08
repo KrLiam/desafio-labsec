@@ -71,8 +71,8 @@ public class Resumidor {
 
         String hex = new String(chars, StandardCharsets.UTF_8);
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo));
-        writer.write(hex);
-        writer.close();
+        try (FileWriter writer = new FileWriter(caminhoArquivo)) {
+            writer.write(hex);
+        }
     }
 }

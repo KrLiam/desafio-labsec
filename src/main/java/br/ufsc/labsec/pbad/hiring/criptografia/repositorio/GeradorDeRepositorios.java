@@ -38,9 +38,8 @@ public class GeradorDeRepositorios {
 
         store.setKeyEntry(alias, chavePrivada, senha, new X509Certificate[]{certificado});
 
-        try (FileOutputStream fos = new FileOutputStream(caminhoPkcs12)) {
-            store.store(fos, senha);
+        try (FileOutputStream stream = new FileOutputStream(caminhoPkcs12)) {
+            store.store(stream, senha);
         }
     }
-
 }

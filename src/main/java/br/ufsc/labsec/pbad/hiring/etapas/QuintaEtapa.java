@@ -45,11 +45,11 @@ import br.ufsc.labsec.pbad.hiring.criptografia.repositorio.RepositorioChaves;
 public class QuintaEtapa {
     public static void executarEtapa() {
         try {
-            RepositorioChaves chaves = new RepositorioChaves(Constantes.formatoRepositorio);
-            chaves.abrir(Constantes.caminhoPkcs12Usuario, Constantes.senhaMestre);
+            RepositorioChaves repositorio = new RepositorioChaves(Constantes.formatoRepositorio);
+            repositorio.abrir(Constantes.caminhoPkcs12Usuario, Constantes.senhaMestre);
             
-            PrivateKey chave_privada = chaves.pegarChavePrivada(Constantes.aliasUsuario);
-            X509Certificate certificado = chaves.pegarCertificado(Constantes.aliasUsuario);
+            PrivateKey chave_privada = repositorio.pegarChavePrivada(Constantes.aliasUsuario);
+            X509Certificate certificado = repositorio.pegarCertificado(Constantes.aliasUsuario);
 
             GeradorDeAssinatura assinaturas = new GeradorDeAssinatura();
             assinaturas.informaAssinante(certificado, chave_privada);
@@ -60,9 +60,8 @@ public class QuintaEtapa {
             assinaturas.escreveAssinatura(output, signed);
         }
         catch (Exception exc) {
-            System.out.println("Erro ao executar etapa 5:");
+            System.out.println("Erro ao executar a quinta etapa:");
             exc.printStackTrace();
         }
     }
-
 }
