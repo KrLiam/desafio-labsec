@@ -1,5 +1,6 @@
 package br.ufsc.labsec.pbad.hiring.criptografia.certificado;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.cert.Certificate;
@@ -19,7 +20,10 @@ public class EscritorDeCertificados {
      */
     public static void escreveCertificado(String nomeArquivo, Certificate certificado)
     throws IOException {
-        try (JcaPEMWriter writer = new JcaPEMWriter(new FileWriter(nomeArquivo))) {
+        File file = new File(nomeArquivo);
+        file.getParentFile().mkdirs();
+        
+        try (JcaPEMWriter writer = new JcaPEMWriter(new FileWriter(file))) {
             writer.writeObject(certificado);
         }
     }

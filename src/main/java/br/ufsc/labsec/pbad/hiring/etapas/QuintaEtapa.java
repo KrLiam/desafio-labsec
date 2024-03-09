@@ -1,5 +1,6 @@
 package br.ufsc.labsec.pbad.hiring.etapas;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
@@ -56,8 +57,10 @@ public class QuintaEtapa {
 
             CMSSignedData dados = assinaturas.assinar(Constantes.caminhoTextoPlano);
 
-            FileOutputStream saida = new FileOutputStream(Constantes.caminhoAssinatura);
-            assinaturas.escreveAssinatura(saida, dados);
+            File saida = new File(Constantes.caminhoAssinatura);
+            saida.getParentFile().mkdirs();
+            
+            assinaturas.escreveAssinatura(new FileOutputStream(saida), dados);
         }
         catch (Exception exc) {
             System.out.println("Erro ao executar a quinta etapa:");

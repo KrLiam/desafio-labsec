@@ -1,9 +1,6 @@
 package br.ufsc.labsec.pbad.hiring.etapas;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 
 import br.ufsc.labsec.pbad.hiring.Constantes;
 import br.ufsc.labsec.pbad.hiring.criptografia.resumo.Resumidor;

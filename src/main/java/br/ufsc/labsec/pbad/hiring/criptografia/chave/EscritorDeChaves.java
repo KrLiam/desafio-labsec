@@ -1,5 +1,6 @@
 package br.ufsc.labsec.pbad.hiring.criptografia.chave;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,7 +25,10 @@ public class EscritorDeChaves {
      * @param nomeDoArquivo nome do local onde será escrita a chave.
      */
     public static void escreveChaveEmDisco(Key chave, String nomeDoArquivo) throws FileNotFoundException, IOException {
-        JcaPEMWriter writer = new JcaPEMWriter(new FileWriter(nomeDoArquivo));
+        File file = new File(nomeDoArquivo);
+        file.getParentFile().mkdirs();
+
+        JcaPEMWriter writer = new JcaPEMWriter(new FileWriter(file));
 
         try {
             Object objeto = chave;

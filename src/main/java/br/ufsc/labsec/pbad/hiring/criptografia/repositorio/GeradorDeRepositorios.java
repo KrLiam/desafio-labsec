@@ -1,5 +1,6 @@
 package br.ufsc.labsec.pbad.hiring.criptografia.repositorio;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.KeyStore;
@@ -38,6 +39,9 @@ public class GeradorDeRepositorios {
 
         store.setKeyEntry(alias, chavePrivada, senha, new X509Certificate[]{certificado});
 
+        File file = new File(caminhoPkcs12);
+        file.getParentFile().mkdirs();
+        
         try (FileOutputStream stream = new FileOutputStream(caminhoPkcs12)) {
             store.store(stream, senha);
         }
