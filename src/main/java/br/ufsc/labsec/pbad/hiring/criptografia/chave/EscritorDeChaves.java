@@ -1,7 +1,6 @@
 package br.ufsc.labsec.pbad.hiring.criptografia.chave;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.Key;
@@ -24,7 +23,7 @@ public class EscritorDeChaves {
      * @param chave         chave assimétrica a ser escrita em disco.
      * @param nomeDoArquivo nome do local onde será escrita a chave.
      */
-    public static void escreveChaveEmDisco(Key chave, String nomeDoArquivo) throws FileNotFoundException, IOException {
+    public static void escreveChaveEmDisco(Key chave, String nomeDoArquivo) throws IOException {
         File file = new File(nomeDoArquivo);
         file.getParentFile().mkdirs();
 

@@ -61,8 +61,7 @@ public class QuartaEtapa {
             );
         }
         catch (Exception exc) {
-            System.out.println("Erro ao executar a quarta etapa:");
-            exc.printStackTrace();
+            System.out.println("Erro ao executar a quarta etapa: " + exc.getMessage());
         }
     }
 }

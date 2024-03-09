@@ -17,7 +17,6 @@ import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
 
 import br.ufsc.labsec.pbad.hiring.Constantes;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -105,7 +104,7 @@ public class GeradorDeAssinatura {
      */
     private SignerInfoGenerator preparaInformacoesAssinante(
         PrivateKey chavePrivada, X509Certificate certificado
-    ) throws CertificateEncodingException, OperatorCreationException {
+    ) throws OperatorCreationException, CertificateEncodingException {
         JcaDigestCalculatorProviderBuilder provider_builder = new JcaDigestCalculatorProviderBuilder();
         DigestCalculatorProvider provider = provider_builder.build();
         

@@ -1,13 +1,13 @@
 package br.ufsc.labsec.pbad.hiring.criptografia.repositorio;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
-import java.security.UnrecoverableEntryException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
@@ -32,7 +32,7 @@ public class GeradorDeRepositorios {
      */
     public static void gerarPkcs12(PrivateKey chavePrivada, X509Certificate certificado,
                                    String caminhoPkcs12, String alias, char[] senha)
-    throws KeyStoreException, NoSuchAlgorithmException, IOException, CertificateException, UnrecoverableEntryException {
+    throws KeyStoreException, FileNotFoundException, IOException, NoSuchAlgorithmException, CertificateException {
         KeyStore store = KeyStore.getInstance(Constantes.formatoRepositorio);
     
         store.load(null, null);

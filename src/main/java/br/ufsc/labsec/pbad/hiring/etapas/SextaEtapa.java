@@ -52,8 +52,7 @@ public class SextaEtapa {
             System.out.println("Assinatura válida: " + String.valueOf(resultado));
         }
         catch (Exception exc) {
-            System.out.println("Erro ao executar a sexta etapa:");
-            exc.printStackTrace();
+            System.out.println("Erro ao executar a sexta etapa: " + exc.getMessage());
         }
     }
 }

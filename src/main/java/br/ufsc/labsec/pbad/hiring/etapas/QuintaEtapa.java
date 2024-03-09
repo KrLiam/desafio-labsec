@@ -63,8 +63,7 @@ public class QuintaEtapa {
             assinaturas.escreveAssinatura(new FileOutputStream(saida), dados);
         }
         catch (Exception exc) {
-            System.out.println("Erro ao executar a quinta etapa:");
-            exc.printStackTrace();
+            System.out.println("Erro ao executar a quinta etapa: " + exc.getMessage());
         }
     }
 }

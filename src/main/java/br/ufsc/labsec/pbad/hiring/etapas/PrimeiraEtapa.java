@@ -36,8 +36,7 @@ public class PrimeiraEtapa {
             resumidor.escreveResumoEmDisco(resumo, Constantes.caminhoResumoCriptografico);
         }
         catch (Exception exc) {
-            System.out.println("Erro ao executar a primeira etapa:");
-            exc.printStackTrace();
+            System.out.println("Erro ao executar a primeira etapa: " + exc.getMessage());
         }
     }
 }

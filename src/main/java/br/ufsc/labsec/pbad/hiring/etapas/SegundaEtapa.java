@@ -44,8 +44,7 @@ public class SegundaEtapa {
             EscritorDeChaves.escreveChaveEmDisco(ac.getPrivate(), Constantes.caminhoChavePrivadaAc);
         }
         catch (Exception exc) {
-            System.out.println("Erro ao executar a segunda etapa:");
-            exc.printStackTrace();
+            System.out.println("Erro ao executar a segunda etapa: " + exc.getMessage());
         }
     }
 

@@ -34,7 +34,7 @@ public class Resumidor {
      * @param arquivoDeEntrada arquivo a ser processado.
      * @return Bytes do resumo.
      */
-    public byte[] resumir(File arquivoDeEntrada) throws FileNotFoundException, IOException {
+    public byte[] resumir(File arquivoDeEntrada) throws IOException {
         FileInputStream stream = new FileInputStream(arquivoDeEntrada);
         
         byte[] buffer = new byte[256];

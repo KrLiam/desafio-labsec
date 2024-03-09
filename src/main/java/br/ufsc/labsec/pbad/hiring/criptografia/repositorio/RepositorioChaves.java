@@ -1,6 +1,7 @@
 package br.ufsc.labsec.pbad.hiring.criptografia.repositorio;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -34,7 +35,7 @@ public class RepositorioChaves {
      * @param senha Senha do repositório.
      */
     public void abrir(String caminhoRepositorio, char[] senha)
-    throws IOException, NoSuchAlgorithmException, CertificateException {
+    throws FileNotFoundException, IOException, NoSuchAlgorithmException, CertificateException {
         try (FileInputStream stream = new FileInputStream(caminhoRepositorio)) {
             repositorio.load(stream, senha);
         }

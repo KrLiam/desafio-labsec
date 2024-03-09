@@ -49,7 +49,7 @@ public class LeitorDeChaves {
      * @return Chave pública.
      */
     public static PublicKey lerChavePublicaDoDisco(String caminhoChave)
-    throws IOException {
+    throws FileNotFoundException, IOException {
         try (PEMParser parser = new PEMParser(new FileReader(caminhoChave))) {
             Object obj = parser.readObject();
 

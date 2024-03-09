@@ -82,8 +82,7 @@ public class TerceiraEtapa {
             EscritorDeCertificados.escreveCertificado(Constantes.caminhoCertificadoAcRaiz, certificado_ac);
         }
         catch (Exception exc) {
-            System.out.println("Erro ao executar a terceira etapa:");
-            exc.printStackTrace();
+            System.out.println("Erro ao executar a terceira etapa: " + exc.getMessage());
         }
     }
 }

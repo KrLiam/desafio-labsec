@@ -19,7 +19,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
@@ -100,9 +99,9 @@ public class GeradorDeCertificados {
      *                             certificado.
      * @return Bytes da assinatura.
      */
-    public DERBitString geraValorDaAssinaturaCertificado(TBSCertificate estruturaCertificado,
-                                                         PrivateKey chavePrivadaAc)
-    throws NoSuchAlgorithmException, InvalidKeyException, SignatureException, IOException {
+    public DERBitString geraValorDaAssinaturaCertificado(
+        TBSCertificate estruturaCertificado, PrivateKey chavePrivadaAc
+    ) throws InvalidKeyException, SignatureException, IOException {
         signature.initSign(chavePrivadaAc);
 
         signature.update(estruturaCertificado.getEncoded());
@@ -121,7 +120,7 @@ public class GeradorDeCertificados {
      */
     public X509Certificate gerarCertificado(
         TBSCertificate estruturaCertificado, DERBitString valorDaAssinatura
-    ) throws CertificateException, NoSuchProviderException, IOException {
+    ) throws CertificateException, IOException {
         
         ASN1EncodableVector vector = new ASN1EncodableVector();
 
