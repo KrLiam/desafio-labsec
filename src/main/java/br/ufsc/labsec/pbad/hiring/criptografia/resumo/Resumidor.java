@@ -35,20 +35,19 @@ public class Resumidor {
      * @return Bytes do resumo.
      */
     public byte[] resumir(File arquivoDeEntrada) throws IOException {
-        FileInputStream stream = new FileInputStream(arquivoDeEntrada);
-        
-        byte[] buffer = new byte[256];
-        md.reset();
-
-        while(true) {
-            int length = stream.read(buffer);
-            if (length == -1) break;
-
-            md.update(buffer, 0, length);
+        try (FileInputStream stream = new FileInputStream(arquivoDeEntrada)) {
+            md.reset();
+    
+            while(true) {
+                int value = stream.read();
+                if (value == -1) break;
+    
+                md.update((byte) value);
+            }
+    
+            return md.digest();
         }
-
-        stream.close();
-        return md.digest();
+        
     }
 
     private static final byte[] hex_chars = "0123456789abcdef".getBytes();
