@@ -40,10 +40,10 @@ public class Constantes {
             caminhoArtefatos + "assinaturas/assinatura.der";
 
     public static final int numeroSerieAc = 1;
-    public static final int numeroDeSerie = 2;
+    public static final int numeroDeSerie = 22100639;
 
     public static final String aliasAc = "AC-RAIZ";
-    public static final String aliasUsuario = "usuario";
+    public static final String aliasUsuario = "William Kraus";
 
     public static final String nomeAcRaiz = "CN=" + aliasAc;
     public static final String nomeUsuario = "CN=" + aliasUsuario;

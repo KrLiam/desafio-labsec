@@ -50,6 +50,11 @@ public class GeradorDeCertificados {
     AlgorithmIdentifier algoritmoDeAssinatura;
     Signature signature;
 
+    /**
+     * Construtor.
+     * 
+     * @param algoritmoAssinatura O algoritmo de assinatura a ser utilizado.
+     */
     public GeradorDeCertificados(String algoritmoAssinatura) throws NoSuchAlgorithmException {
         DefaultSignatureAlgorithmIdentifierFinder finder = new DefaultSignatureAlgorithmIdentifierFinder();
 

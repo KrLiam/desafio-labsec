@@ -52,15 +52,13 @@ public class QuintaEtapa {
             PrivateKey chave_privada = repositorio.pegarChavePrivada(Constantes.aliasUsuario);
             X509Certificate certificado = repositorio.pegarCertificado(Constantes.aliasUsuario);
 
-            GeradorDeAssinatura assinaturas = new GeradorDeAssinatura();
-            assinaturas.informaAssinante(certificado, chave_privada);
-
-            CMSSignedData dados = assinaturas.assinar(Constantes.caminhoTextoPlano);
+            GeradorDeAssinatura gerador_assinatura = new GeradorDeAssinatura();
+            gerador_assinatura.informaAssinante(certificado, chave_privada);
+            CMSSignedData dados_assinados = gerador_assinatura.assinar(Constantes.caminhoTextoPlano);
 
             File saida = new File(Constantes.caminhoAssinatura);
             saida.getParentFile().mkdirs();
-            
-            assinaturas.escreveAssinatura(new FileOutputStream(saida), dados);
+            gerador_assinatura.escreveAssinatura(new FileOutputStream(saida), dados_assinados);
         }
         catch (Exception exc) {
             System.out.println("Erro ao executar a quinta etapa: " + exc.getMessage());

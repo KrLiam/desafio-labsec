@@ -49,13 +49,13 @@ public class GeradorDeAssinatura {
     /**
      * Informa qual será o assinante.
      * 
-     * Referência: 
+     * Referência: https://www.bouncycastle.org/docs/pkixdocs1.5on/org/bouncycastle/cms/CMSSignedDataGenerator.html
      *
      * @param certificado  certificado, no padrão X.509, do assinante.
      * @param chavePrivada chave privada do assinante.
      */
-    public void informaAssinante(X509Certificate certificado,
-                                 PrivateKey chavePrivada) throws CertificateEncodingException, CMSException {
+    public void informaAssinante(X509Certificate certificado, PrivateKey chavePrivada)
+    throws CertificateEncodingException, CMSException {
         this.certificado = certificado;
         this.chavePrivada = chavePrivada;
 
@@ -69,7 +69,7 @@ public class GeradorDeAssinatura {
     /**
      * Gera uma assinatura no padrão CMS.
      * 
-     * Referência:
+     * Referência: https://www.bouncycastle.org/docs/pkixdocs1.5on/org/bouncycastle/cms/CMSSignedDataGenerator.html
      * 
      * @param caminhoDocumento caminho do documento que será assinado.
      * @return Documento assinado.
@@ -87,6 +87,8 @@ public class GeradorDeAssinatura {
     /**
      * Transforma o documento que será assinado para um formato compatível
      * com a assinatura.
+     * 
+     * Referência: https://www.bouncycastle.org/docs/pkixdocs1.5on/org/bouncycastle/cms/CMSSignedDataGenerator.html
      *
      * @param caminhoDocumento caminho do documento que será assinado.
      * @return Documento no formato correto.
@@ -101,6 +103,8 @@ public class GeradorDeAssinatura {
     /**
      * Gera as informações do assinante na estrutura necessária para ser
      * adicionada na assinatura.
+     * 
+     * Referência: https://www.bouncycastle.org/docs/pkixdocs1.5on/org/bouncycastle/cms/CMSSignedDataGenerator.html
      *
      * @param chavePrivada chave privada do assinante.
      * @param certificado  certificado do assinante.
@@ -122,6 +126,8 @@ public class GeradorDeAssinatura {
 
     /**
      * Escreve a assinatura no local apontado.
+     * 
+     * Referência: https://www.bouncycastle.org/docs/pkixdocs1.5on/org/bouncycastle/cms/CMSSignedDataGenerator.html
      *
      * @param arquivo    arquivo que será escrita a assinatura.
      * @param assinatura objeto da assinatura.

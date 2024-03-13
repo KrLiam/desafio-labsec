@@ -16,7 +16,7 @@ public class EscritorDeCertificados {
      * Escreve o certificado indicado no disco.
      *
      * @param nomeArquivo           caminho que será escrito o certificado.
-     * @param certificado objeto do certificado.
+     * @param certificado Objeto do certificado.
      */
     public static void escreveCertificado(String nomeArquivo, Certificate certificado)
     throws IOException {

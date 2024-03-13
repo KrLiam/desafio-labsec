@@ -55,20 +55,10 @@ public class TerceiraEtapa {
         try {
             GeradorDeCertificados gerador = new GeradorDeCertificados(Constantes.algoritmoAssinatura);
 
+            // pegar chave privada da AC-Raiz
             PrivateKey privada_ac = LeitorDeChaves.lerChavePrivadaDoDisco(Constantes.caminhoChavePrivadaAc);
 
-            PublicKey publica_usuario = LeitorDeChaves.lerChavePublicaDoDisco(Constantes.caminhoChavePublicaUsuario);
-            TBSCertificate tbs_usuario = gerador.gerarEstruturaCertificado(
-                publica_usuario,
-                Constantes.numeroDeSerie,
-                Constantes.nomeUsuario,
-                Constantes.nomeAcRaiz,
-                Constantes.validadeCertificado
-            );
-            DERBitString assinatura_usuario = gerador.geraValorDaAssinaturaCertificado(tbs_usuario, privada_ac);
-            X509Certificate certificado_usuario = gerador.gerarCertificado(tbs_usuario, assinatura_usuario);
-            EscritorDeCertificados.escreveCertificado(Constantes.caminhoCertificadoUsuario, certificado_usuario);
-
+            // gerar certificado autoassinado da AC-Raiz
             PublicKey publica_ac = LeitorDeChaves.lerChavePublicaDoDisco(Constantes.caminhoChavePublicaAc);
             TBSCertificate tbs_ac = gerador.gerarEstruturaCertificado(
                 publica_ac,
@@ -80,6 +70,19 @@ public class TerceiraEtapa {
             DERBitString assinatura_ac = gerador.geraValorDaAssinaturaCertificado(tbs_ac, privada_ac);
             X509Certificate certificado_ac = gerador.gerarCertificado(tbs_ac, assinatura_ac);
             EscritorDeCertificados.escreveCertificado(Constantes.caminhoCertificadoAcRaiz, certificado_ac);
+
+            // gerar certificado do usuário assinado pela AC-Raiz
+            PublicKey publica_usuario = LeitorDeChaves.lerChavePublicaDoDisco(Constantes.caminhoChavePublicaUsuario);
+            TBSCertificate tbs_usuario = gerador.gerarEstruturaCertificado(
+                publica_usuario,
+                Constantes.numeroDeSerie,
+                Constantes.nomeUsuario,
+                Constantes.nomeAcRaiz,
+                Constantes.validadeCertificado
+            );
+            DERBitString assinatura_usuario = gerador.geraValorDaAssinaturaCertificado(tbs_usuario, privada_ac);
+            X509Certificate certificado_usuario = gerador.gerarCertificado(tbs_usuario, assinatura_usuario);
+            EscritorDeCertificados.escreveCertificado(Constantes.caminhoCertificadoUsuario, certificado_usuario);
         }
         catch (Exception exc) {
             System.out.println("Erro ao executar a terceira etapa: " + exc.getMessage());

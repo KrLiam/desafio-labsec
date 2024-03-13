@@ -33,7 +33,7 @@ public class GeradorDeChaves {
      * Gera um par de chaves, usando o algoritmo definido pela classe, com o
      * tamanho da chave especificado.
      * 
-     * Referência: 
+     * Referência: https://www.txedo.com/blog/java-generate-rsa-keys-write-pem-file/
      *
      * @param tamanhoDaChave tamanho em bits das chaves geradas.
      * @return Par de chaves.

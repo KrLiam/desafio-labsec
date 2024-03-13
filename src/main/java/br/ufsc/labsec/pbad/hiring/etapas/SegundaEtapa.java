@@ -35,10 +35,12 @@ public class SegundaEtapa {
         try {
             GeradorDeChaves gen_chaves = new GeradorDeChaves(Constantes.algoritmoChave);
 
+            // gerar par de chaves do usuario
             KeyPair usuario = gen_chaves.gerarParDeChaves(256);
             EscritorDeChaves.escreveChaveEmDisco(usuario.getPublic(), Constantes.caminhoChavePublicaUsuario);
             EscritorDeChaves.escreveChaveEmDisco(usuario.getPrivate(), Constantes.caminhoChavePrivadaUsuario);
             
+            // gerar par de chaves da AC-Raiz
             KeyPair ac = gen_chaves.gerarParDeChaves(521);
             EscritorDeChaves.escreveChaveEmDisco(ac.getPublic(), Constantes.caminhoChavePublicaAc);
             EscritorDeChaves.escreveChaveEmDisco(ac.getPrivate(), Constantes.caminhoChavePrivadaAc);

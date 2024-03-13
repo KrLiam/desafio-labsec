@@ -1,9 +1,7 @@
 package br.ufsc.labsec.pbad.hiring.criptografia.resumo;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -22,6 +20,8 @@ public class Resumidor {
 
     /**
      * Construtor.
+     * 
+     * @param algoritmo Algoritmo de resumo criptográfico.
      */
     public Resumidor(String algoritmo) throws NoSuchAlgorithmException {
         this.algoritmo = algoritmo;

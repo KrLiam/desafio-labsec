@@ -40,6 +40,8 @@ public class VerificadorDeAssinatura {
 
     /**
      * Gera o verificador de assinaturas a partir das informações do assinante.
+     * 
+     * Referência: https://www.bouncycastle.org/docs/pkixdocs1.5on/org/bouncycastle/cms/jcajce/JcaSimpleSignerInfoVerifierBuilder.html
      *
      * @param certificado certificado do assinante.
      * @return Objeto que representa o verificador de assinaturas.

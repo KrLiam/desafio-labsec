@@ -23,6 +23,8 @@ public class RepositorioChaves {
 
     /**
      * Construtor.
+     * 
+     * @param formatoRepositorio Formato do repositório a ser lido.
      */
     public RepositorioChaves(String formatoRepositorio) throws KeyStoreException {
         repositorio = KeyStore.getInstance(formatoRepositorio);
@@ -63,6 +65,8 @@ public class RepositorioChaves {
     
     /**
      * Obtém do certificado do PKCS#12.
+     * 
+     * Referência: https://docs.oracle.com/javase/8/docs/api/java/security/KeyStore.html
      *
      * @param alias O alias relacionado ao certificado desejado.
      * @return Certificado.

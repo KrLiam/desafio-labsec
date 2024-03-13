@@ -38,16 +38,15 @@ public class SextaEtapa {
     public static void executarEtapa() {
         Security.addProvider(new BouncyCastleProvider());
 
-        try (FileInputStream stream = new FileInputStream(Constantes.caminhoAssinatura)) {
-            ByteArrayInputStream assinatura = new ByteArrayInputStream(stream.readAllBytes());
+        try (FileInputStream arquivo_assinado = new FileInputStream(Constantes.caminhoAssinatura)) {
+            CMSSignedData dados_assinados = new CMSSignedData(arquivo_assinado);
 
             RepositorioChaves chaves = new RepositorioChaves(Constantes.formatoRepositorio);
-
             chaves.abrir(Constantes.caminhoPkcs12Usuario, Constantes.senhaMestre);
-            X509Certificate certificado = chaves.pegarCertificado(Constantes.aliasUsuario);
-
+            X509Certificate certificado_assinante = chaves.pegarCertificado(Constantes.aliasUsuario);
+            
             VerificadorDeAssinatura verificador = new VerificadorDeAssinatura();
-            boolean resultado = verificador.verificarAssinatura(certificado, new CMSSignedData(assinatura));
+            boolean resultado = verificador.verificarAssinatura(certificado_assinante, dados_assinados);
 
             System.out.println("Assinatura válida: " + String.valueOf(resultado));
         }

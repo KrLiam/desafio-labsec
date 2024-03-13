@@ -38,9 +38,9 @@ public class QuartaEtapa {
 
     public static void executarEtapa() {
         try {
+            // gerar repositório de chaves para o usuário
             PrivateKey privada_usuario = LeitorDeChaves.lerChavePrivadaDoDisco(Constantes.caminhoChavePrivadaUsuario);
             X509Certificate certificado_usuario = LeitorDeCertificados.lerCertificadoDoDisco(Constantes.caminhoCertificadoUsuario);
-
             GeradorDeRepositorios.gerarPkcs12(
                 privada_usuario,
                 certificado_usuario,
@@ -49,9 +49,9 @@ public class QuartaEtapa {
                 Constantes.senhaMestre
             );
 
+            // gerar repositório de chaves para a AC-Raiz
             PrivateKey privada_ac = LeitorDeChaves.lerChavePrivadaDoDisco(Constantes.caminhoChavePrivadaAc);
             X509Certificate certificado_ac = LeitorDeCertificados.lerCertificadoDoDisco(Constantes.caminhoCertificadoAcRaiz);
-
             GeradorDeRepositorios.gerarPkcs12(
                 privada_ac,
                 certificado_ac,
