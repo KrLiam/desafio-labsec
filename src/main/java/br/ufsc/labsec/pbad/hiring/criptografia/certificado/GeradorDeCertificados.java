@@ -59,6 +59,8 @@ public class GeradorDeCertificados {
 
     /**
      * Gera a estrutura de informações de um certificado.
+     * 
+     * Referência: http://www.java2s.com/example/java-src/pkg/com/vmware/identity/rest/core/test/util/certificategenerator-9d67d.html
      *
      * @param chavePublica  chave pública do titular.
      * @param numeroDeSerie número de série do certificado.
@@ -93,6 +95,8 @@ public class GeradorDeCertificados {
 
     /**
      * Gera valor da assinatura do certificado.
+     * 
+     * Referência: http://www.java2s.com/example/java-src/pkg/com/vmware/identity/rest/core/test/util/certificategenerator-9d67d.html
      *
      * @param estruturaCertificado estrutura de informações do certificado.
      * @param chavePrivadaAc       chave privada da AC que emitirá esse
@@ -112,6 +116,8 @@ public class GeradorDeCertificados {
 
     /**
      * Gera um certificado.
+     * 
+     * Referência: http://www.java2s.com/example/java-src/pkg/com/vmware/identity/rest/core/test/util/certificategenerator-9d67d.html
      *
      * @param estruturaCertificado  estrutura de informações do certificado.
      * @param valorDaAssinatura     valor da assinatura.
@@ -129,9 +135,7 @@ public class GeradorDeCertificados {
         vector.add(valorDaAssinatura);
         
         CertificateFactory factory = CertificateFactory.getInstance(Constantes.formatoCertificado);
-        
-        return (X509Certificate) factory.generateCertificate(
-            new ByteArrayInputStream(new DERSequence(vector).getEncoded(ASN1Encoding.DER))
-        );
+        byte[] encoded = new DERSequence(vector).getEncoded(ASN1Encoding.DER);
+        return (X509Certificate) factory.generateCertificate(new ByteArrayInputStream(encoded));
     }
 }

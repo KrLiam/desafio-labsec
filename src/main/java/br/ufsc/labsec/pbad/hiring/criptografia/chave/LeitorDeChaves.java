@@ -23,6 +23,8 @@ public class LeitorDeChaves {
 
     /**
      * Lê a chave privada do local indicado.
+     * 
+     * Referência: https://www.baeldung.com/java-read-pem-file-keys
      *
      * @param caminhoChave local do arquivo da chave privada.
      * @param algoritmo    algoritmo de criptografia assimétrica que a chave
@@ -42,6 +44,8 @@ public class LeitorDeChaves {
 
     /**
      * Lê a chave pública do local indicado.
+     * 
+     * Referência: https://www.baeldung.com/java-read-pem-file-keys
      *
      * @param caminhoChave local do arquivo da chave pública.
      * @param algoritmo    algoritmo de criptografia assimétrica que a chave

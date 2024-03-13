@@ -20,6 +20,8 @@ public class LeitorDeCertificados {
 
     /**
      * Lê um certificado do local indicado.
+     * 
+     * Referência: https://stackoverflow.com/questions/74066314/pemparser-bouncy-castle-read-certificate-and-private-key-from-pem
      *
      * @param caminhoCertificado caminho do certificado a ser lido.
      * @return Objeto do certificado.

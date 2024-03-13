@@ -3,6 +3,8 @@ package br.ufsc.labsec.pbad.hiring.criptografia.chave;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.SecureRandom;
 
 /**
@@ -30,6 +32,8 @@ public class GeradorDeChaves {
     /**
      * Gera um par de chaves, usando o algoritmo definido pela classe, com o
      * tamanho da chave especificado.
+     * 
+     * Referência: 
      *
      * @param tamanhoDaChave tamanho em bits das chaves geradas.
      * @return Par de chaves.

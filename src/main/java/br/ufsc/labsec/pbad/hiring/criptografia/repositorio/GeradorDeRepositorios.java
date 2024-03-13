@@ -22,6 +22,8 @@ public class GeradorDeRepositorios {
 
     /**
      * Gera um PKCS#12 para a chave privada/certificado passados como parâmetro.
+     * 
+     * Referência: https://docs.oracle.com/javase/8/docs/api/java/security/KeyStore.html
      *
      * @param chavePrivada  chave privada do titular do certificado.
      * @param certificado   certificado do titular.

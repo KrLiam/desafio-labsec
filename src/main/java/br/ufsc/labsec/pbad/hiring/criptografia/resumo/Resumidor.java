@@ -30,6 +30,8 @@ public class Resumidor {
 
     /**
      * Calcula o resumo criptográfico do arquivo indicado.
+     * 
+     * Referência: https://stackoverflow.com/questions/3103652/hash-string-via-sha-256-in-java
      *
      * @param arquivoDeEntrada arquivo a ser processado.
      * @return Bytes do resumo.
@@ -54,6 +56,8 @@ public class Resumidor {
 
     /**
      * Escreve o resumo criptográfico no local indicado.
+     * 
+     * Referência: https://stackoverflow.com/questions/9655181/java-convert-a-byte-array-to-a-hex-string
      *
      * @param resumo         resumo criptográfico em bytes.
      * @param caminhoArquivo caminho do arquivo.

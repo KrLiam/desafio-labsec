@@ -30,6 +30,8 @@ public class RepositorioChaves {
 
     /**
      * Abre o repositório do local indicado.
+     * 
+     * Referência: https://docs.oracle.com/javase/8/docs/api/java/security/KeyStore.html
      *
      * @param caminhoRepositorio caminho do PKCS#12.
      * @param senha Senha do repositório.
@@ -45,6 +47,8 @@ public class RepositorioChaves {
 
     /**
      * Obtém a chave privada do PKCS#12.
+     * 
+     * Referência: https://docs.oracle.com/javase/8/docs/api/java/security/KeyStore.html
      * 
      * @param alias O alias relacionado ao certificado desejado.
      * @return Chave privada.

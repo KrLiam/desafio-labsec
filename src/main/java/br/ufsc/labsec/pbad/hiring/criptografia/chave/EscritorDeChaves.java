@@ -19,6 +19,8 @@ public class EscritorDeChaves {
 
     /**
      * Escreve uma chave no local indicado.
+     * 
+     * Referência: https://github.com/apache/zookeeper/blob/803c485db99134d8f41c2ea90ca9305e6b806d52/zookeeper-server/src/test/java/org/apache/zookeeper/common/X509TestHelpers.java#L267
      *
      * @param chave         chave assimétrica a ser escrita em disco.
      * @param nomeDoArquivo nome do local onde será escrita a chave.

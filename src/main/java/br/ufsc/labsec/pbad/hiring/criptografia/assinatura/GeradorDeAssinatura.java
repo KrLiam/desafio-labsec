@@ -48,6 +48,8 @@ public class GeradorDeAssinatura {
 
     /**
      * Informa qual será o assinante.
+     * 
+     * Referência: 
      *
      * @param certificado  certificado, no padrão X.509, do assinante.
      * @param chavePrivada chave privada do assinante.
@@ -66,7 +68,9 @@ public class GeradorDeAssinatura {
 
     /**
      * Gera uma assinatura no padrão CMS.
-     *
+     * 
+     * Referência:
+     * 
      * @param caminhoDocumento caminho do documento que será assinado.
      * @return Documento assinado.
      */
